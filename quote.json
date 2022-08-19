@@ -1,0 +1,43 @@
+{
+  "quotes": {
+    "ru": [
+      { "quote": "«Лучшие сны происходят, когда вы бодрствуете.»", "author": "Черри Гилдерблум" },
+
+      { "quote": "«Примите себя таким, какой вы есть. Только если вы не серийный убийца.»", "author": "Эллен Дедженерес, «Серьезно… я шучу»" },
+
+      { "quote": "«Нельзя быть слишком хорошо одетым или слишком хорошо образованным.»", "author": "Оскар Уайльд" },
+
+      { "quote": "«Упади семь раз, поднимись восемь».", "author": "Японская пословица" },
+      { "quote": "«Успех — не ключ к счастью. Это счастье — ключ к успеху.»", "author": "Герман Кейн" },
+
+      { "quote": "«Знание — это сокровище, которое всюду следует за тем, кто им обладает.»", "author": "Китайская пословица" },
+
+      { "quote": "«Успех — дитя смелости.»", "author": "Бенджамин Дизраэли" },
+
+      { "quote": "«Владеть вторым языком означает обладать второй душой.»", "author": "Карл Великий, император Священной Римской империи" },
+
+      { "quote": "«Мы не помним дни, мы помним моменты.»", "author": "Че́заре Паве́зе" },
+      { "quote": "«Никогда не смейтесь над человеком, который говорит на ломаном английском. Это значит, что он знает и другой язык.»", "author": "Х. Джексон Браун — младший" }
+    ],
+
+    "en": [
+      { "quote": "«The best dreams happen when you’re awake.»", "author": "Cherie Gilderbloom" },
+
+      { "quote": "«Accept who you are. Unless you’re a serial killer.»", "author": "Ellen DeGeneres, «Seriously… I’m Kidding»." },
+
+      { "quote": "«You can never be overdressed or overeducated.»", "author": "Oscar Wilde" },
+
+      { "quote": "«Fall seven times and stand up eight.»", "author": "Japanese Proverb" },
+      { "quote": "«Success is not the key to happiness. Happiness is the key to success.»", "author": "Herman Cain" },
+
+      { "quote": "«Learning is a treasure that will follow its owner everywhere.»", "author": "Chinese Proverb" },
+
+      { "quote": "«Success is the child of audacity.»", "author": "Benjamin Disraeli" },
+
+      { "quote": "«To have another language is to possess a second soul.»", "author": "Charlemagne" },
+
+      { "quote": "«We do not remember days, we remember moments.»", "author": "Cesare Pavese" },
+      { "quote": "«Never make fun of someone who speaks broken English. It means they know another language.»", "author": "H. Jackson Brown, Jr." }
+    ]
+  }
+}

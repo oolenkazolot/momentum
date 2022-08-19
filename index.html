@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="assets/favicon.ico" rel="shortcut icon" />
+    <link rel="stylesheet" href="css/owfont-regular.css" />
+    <link rel="stylesheet" href="css/style.css" />
+
+    <title>momentum</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="player">
+        <div class="player-song-title"></div>
+        <div class="player-wrap">
+          <div class="player-controls">
+            <button class="play-prev player-icon"></button>
+            <button class="play player-icon"></button>
+            <button class="play-next player-icon"></button>
+          </div>
+          <div class="progress">
+            <div class="duration-player">
+              <div class="duration-player__progress"></div>
+            </div>
+            <div class="duration-timer">0:00 / 0:00</div>
+          </div>
+          <div class="volume">
+            <button class="volume__button">
+              <img class="volume__button-img" src="assets/svg/volume.svg" alt="volume-img" />
+            </button>
+            <input class="volume__sound" type="range" min="0" max="1" value="0.5" step="0.1" />
+          </div>
+        </div>
+        <ul class="play-list"></ul>
+      </div>
+      <div class="weather">
+        <input type="text" class="city" placeholder="" />
+        <i class="weather-icon owf"></i>
+        <div class="weather-error"></div>
+        <div class="description-container">
+          <span class="temperature"></span>
+          <span class="weather-description"></span>
+        </div>
+        <div class="wind"></div>
+        <div class="humidity"></div>
+      </div>
+    </header>
+    <main class="main">
+      <div class="slider-icons">
+        <button class="slide-prev slider-icon"></button>
+        <button class="slide-next slider-icon"></button>
+      </div>
+      <time class="time"></time>
+      <date class="date"></date>
+      <div class="greeting-container">
+        <span class="greeting"></span>
+        <input type="text" class="name" placeholder="" />
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="quotes">
+        <button class="change-quote"></button>
+        <div class="quote"></div>
+        <div class="author"></div>
+      </div>
+      <!-- start setting application -->
+      <button class="settings__btn">
+        <img class="settings__btn-img" src="assets/svg/settings.svg" alt="settings-img" />
+      </button>
+      <div class="settings">
+        <form class="settings__options">
+          <div class="settings__item">
+            <label class="settings__label" id="label-language"></label>
+            <select class="select-css" name="language" id="language"></select>
+          </div>
+          <div class="settings__item">
+            <label class="settings__label" id="label-source-background"></label>
+            <select class="select-css" name="source" id="source"></select>
+            <div class="settings__tags">
+              <label for="tags" class="settings__tags-label">Укажите тег/теги, для которых API будет присылать изображения:</label>
+              <input type="text" class="settings__tags-input" id="tags" />
+            </div>
+          </div>
+          <div class="hidden-blocks"></div>
+        </form>
+        <button class="settings__close">
+          <img class="settings__close-img" src="assets/svg/settings-close.svg" alt="settings-close-img" />
+        </button>
+      </div>
+      <!-- end setting appplication -->
+      <div class="my-links"></div>
+
+      <div class="footer__container">
+        <a class="footer__link" href="https://github.com/oolenkazolot" target="_blank">
+          <img class="footer__link-img" src="assets/svg/git-icon.svg" alt="github-img" />
+        </a>
+        <p class="footer__copyright">
+          &#169; 2022
+          <a class="footer__link" href="https://github.com/oolenkazolot" target="_blank"> olenkazolot. </a>
+          <br />
+          All Rights Reserved.
+        </p>
+      </div>
+    </footer>
+    <script type="module" src="index.js"></script>
+  </body>
+</html>
