@@ -50,7 +50,7 @@ body {
 
 .player {
   position: relative;
-  z-index: 1000;
+  z-index: 1;
   min-width: 240px;
   padding: 20px;
   background: rgba(0, 0, 0, 0.3);
@@ -685,13 +685,13 @@ input[type="range"]::-ms-track {
   position: fixed;
   left: 0;
   bottom: -560px;
-  z-index: 10;
+  z-index: 2;
   width: 100%;
   max-width: 300px;
   max-height: 550px;
   padding: 25px;
   color: #fff;
-  background-color: rgba(0, 0, 0, 0.);
+  background-color: rgba(0, 0, 0, 0.8);
   border-radius: 5%;
   transition: bottom 0.8s;
   overflow-y:auto;
@@ -1035,6 +1035,9 @@ padding: .6em .8em .5em 1.4em;
 
 .my-links__link {
   color: #fff;
+  white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   text-decoration: none;
   opacity: 0.8;
   transition: opacity .3s;
@@ -1059,9 +1062,11 @@ padding: .6em .8em .5em 1.4em;
   position: relative;
   min-width: 20px;
   min-height: 20px;
+  margin-left: 5px;
 }
 
 .my-links__btn-setting {
+  position: relative;
   width: 20px;
   display: none;
   justify-content: flex-end;
@@ -1074,7 +1079,7 @@ padding: .6em .8em .5em 1.4em;
 
 
 .my-links__btn-setting:hover {
-  position: relative;
+  
   opacity: 1;
 }
 
@@ -1119,6 +1124,7 @@ padding: .6em .8em .5em 1.4em;
 }
 .my-links__setting {
   position: absolute;
+  z-index: 3;
   left: -90px;
   bottom: -40px;
   display: none;
@@ -1242,6 +1248,7 @@ width: 100%;
 margin-bottom: 21px;
 padding: 6px 0;
 border: 0;
+color: #fff;
 background-color: transparent;
 border-bottom: 2px solid rgba(255, 255, 255, 0.3);
 outline: none;

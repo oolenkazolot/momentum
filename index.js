@@ -1,100 +1,46 @@
 import playList from './playList.js';
 import translation from './translation.js';
-import selfEsteem from './selfEsteem.js';
+
 import Links from './links.js';
 
-console.log(selfEsteem);
-//в init передаётся объект с настройками
 Links.init({
-  mainContainer: '.my-links', // селектор куда будет добавляться блок links
+  mainContainer: '.my-links',
   mainClass: 'my-links',
 });
 
-// элемент, внутри которого выводится время
-
 const timeElement = document.querySelector('.time');
-// элемент, внутри которого выводится дата
+
 const dateElement = document.querySelector('.date');
 
-// элемент, внутри которого выводится текст приветствия
 const greetingsElement = document.querySelector('.greeting');
 
-// элемент, внутри которого вводится имя пользователя
 const userName = document.querySelector('.name');
-
-// находим элемент body
 
 const body = document.querySelector('body');
 
-// глобальная переменная, которая содержит рандомное число для слайдера
-
 let randomNumSlide = getRandomNum(1, 20);
 
-// глобальная переменная, которая содержит рандомное число для цитат
-
 let randomNumQuote = getRandomNum(0, 9);
-
-//(переменные, названия которых начинаются с is, называются флагами. Флаг может принимать только два значения: true или false)
-// С помощью флагов проверяем наличие или отсутствие чего-либо. В данном случае проверяем проигрывание в данный момент звука.
-//Когда мы только открываем страницу, звука нет. Поэтому переменную isPlay создаём с значением false:
-
 let isPlay = false;
-
-// глобальная переменная, значение 0, так как вначале проигрывания воспроизводится первый трек
-
 let playNum = 0;
 
-// нашли элемент для отображения города
-
 const city = document.querySelector('.city');
-
-// нашли элемент для отображения иконки погоды
-
 const weatherIcon = document.querySelector('.weather-icon');
-
-// нашли элемент для отображения температуры
-
 const temperature = document.querySelector('.temperature');
-
-// нашли элемент для описания погоды
-
 const weatherDescription = document.querySelector('.weather-description');
-
-// нашли элемент для отображения скорости ветра в м/с
-
 const wind = document.querySelector('.wind');
-
-// нашли элемент для отображения относительной влажности воздуха в %
-
 const humidity = document.querySelector('.humidity');
-
-// нашли элемент для отображения ошибки, если неправильно введен город
-
 const weatherError = document.querySelector('.weather-error');
-
-// нашли элемент для отображения цитаты
-
 const quote = document.querySelector('.quote');
-
-// нашли элемент для отображения автора цитаты
-
 const author = document.querySelector('.author');
-
-// нашли кнопку обновления цитаты
-
 const changeQuote = document.querySelector('.change-quote');
 
-// Перевод приложения на два языка (en/ru)
-
-// объект в котором, хранятся настройки приложения
 const state = {
   language: 'ru',
   sourceBackground: 'gitHub',
   tags: '',
   blocks: ['time', 'date', 'greeting', 'quote', 'weather', 'audio', 'todolist'],
 };
-
-// запись в state значения из localStrogane по ключам 'Language', 'SourceBackground', 'Tags'
 
 function getSettingsLocalStorage() {
   if (localStorage.getItem('language')) {
@@ -109,28 +55,25 @@ function getSettingsLocalStorage() {
 }
 getSettingsLocalStorage();
 
-// элемент выбора языка приложения
 const selectLanguage = document.getElementById('language');
-// при изменении состояния блока выбора языка (т.е. изменении языка) запускается функция
-// changeLanguage
+
 selectLanguage.addEventListener('change', changeLanguage);
 
-// функция, которая при изменении языка в объекте state меняет значение language: на значение value элемента где произошло изменение
 function changeLanguage() {
   state.language = selectLanguage.value;
   city.value = getCityValueLocalStorage();
-  getTimeOfDay(); // запускаются функции для обновления языка
+  getTimeOfDay();
   showPlaceholders();
   showDate();
   getWeather();
   getQuote();
-  setSettingsBlocksLocalStorage(); // сохраняет отмеченные чекбоксы в localstorage
+  setSettingsBlocksLocalStorage();
   addHiddenBlocksItem();
   showApplicationSettings();
   addLanguageOptions();
 }
 // НАСТРОЙКИ ПРИЛОЖЕНИЯ
-//находим элементы кнопка открытия настроек, блок настроек, кнопка закрытия блока настроек
+
 const settingsOpenButton = document.querySelector('.settings__btn');
 const settingsCloseButton = document.querySelector('.settings__close');
 
@@ -140,10 +83,7 @@ function openSettings() {
   settingsElement.classList.toggle('settings--open');
 }
 
-//при клике на кнопку открытия настроек приложения добавляется класс для появления блока настроек
 settingsOpenButton.addEventListener('click', openSettings);
-
-//при клике на кнопку закрытия настроек приложения добавляется класс для скрытия блока настроек
 settingsCloseButton.addEventListener('click', openSettings);
 
 //функция, которая добавляет элементы option (доступные параметры в раскрывающемся списке) в select (языки приложения для выбора) -- с переводами
@@ -208,9 +148,7 @@ function addHiddenBlocksItem() {
   p.classList.add('hidden-blocks__title');
   p.textContent = `${translation[state.language].hiddenBlocksTitle}`;
   hiddenBlocks.append(p);
-  // создаём массив для списка отмеченных чекбоксов из localStorage
   let valueHiddenBlocks = [];
-  //проверяем если такой ключ в localStorage, если есть,  значение ключа  переводим из строки в массив и записываем в массив
   if (localStorage.getItem('hiddenBlocks')) {
     valueHiddenBlocks = JSON.parse(localStorage.getItem('hiddenBlocks'));
   }
@@ -224,7 +162,7 @@ function addHiddenBlocksItem() {
     input.setAttribute('value', valueInputCustomCheckbox[i]);
     input.setAttribute('id', valueInputCustomCheckbox[i]);
     input.addEventListener('change', hidesBlocks);
-    //проверяем совпадает ли значение ключа из  localStorage с value каждого input, если совпадает то добавляем input атрибут 'checked' со значением true
+
     if (valueHiddenBlocks.includes(valueInputCustomCheckbox[i])) {
       input.setAttribute('checked', true);
     }
@@ -241,44 +179,34 @@ function addHiddenBlocksItem() {
 
 addHiddenBlocksItem();
 
-//функция, которая получает значение value элементa из блока hidden-blocks, у которого есть атрибут checked (т.е. нажат чекбокс для скрытия блока). Значение value это и есть имя класса, которому мы добавляем ещё один класс hidden для скрытия блока
-
 function hidesBlocks(e) {
   const value = e.target.value;
   const block = document.querySelector('.' + value);
   block.classList.toggle('hidden');
 }
 
-// функция для скрытия блоков, которые после перезагрузки страницы
 function hidesBlockslist(valueHiddenBlocks) {
-  //перебераем массив элементов списка отмеченных чекбоксов из localStorage
   for (let i = 0; i < valueHiddenBlocks.length; i++) {
-    // создаём переменную, для хранения селектора по значению элемента localStorage
     const block = document.querySelector('.' + valueHiddenBlocks[i]);
-    // данному элементу добавляем класс для скрытия блока
+
     block.classList.add('hidden');
   }
 }
 
-// перед перезагрузкой или закрытием страницы (событие beforeunload) данные нужно сохранить
-
 function setSettingsBlocksLocalStorage() {
-  //массив для хранения элементов с отмеченным чекбоксом
   const arr = [];
-  //находим все элементы с классом custom-checkbox
+
   const checkboxList = document.querySelectorAll('.custom-checkbox');
-  //перебераем все элементы checkboxList,если элемент имеет атрибут checked, мы его записываем в массив arr
+
   for (let i = 0; i < checkboxList.length; i++) {
     if (checkboxList[i].checked) {
       arr.push(checkboxList[i].value);
     }
   }
-  //записываем в localStorage ключ hiddenBlocks со значением массива arr (элементы с отмеченным чекбоксом), при этом  arr зписываем в localStorage в виде строки (массив arr переделываем в строку с помощью JSON.stringify(arr))
+
   localStorage.setItem('hiddenBlocks', JSON.stringify(arr));
 }
 window.addEventListener('beforeunload', setSettingsBlocksLocalStorage);
-
-//функция, которая добавляет класс .settings__tags--open блоку .settings__tags, если источником получения фонового изображения выбран API (для того, чтобы появилось поле для ввода тегов, для которых API будет присылать изображения)
 
 function showSettingsTags(show) {
   const settingsTags = document.querySelector('.settings__tags');
@@ -289,12 +217,8 @@ function showSettingsTags(show) {
   }
 }
 
-// находим элемент input, где вводятся тег/теги для которых API будет присылать изображения
 const settingsTagsInput = document.querySelector('.settings__tags-input');
-// когда в input введут тег/теги для которых API будет присылать изображения, запустится функция
 settingsTagsInput.addEventListener('change', switchSourceBackground);
-
-// *****ФУНКЦИИ*****
 
 //  функция, которая будет выводить текущее время внутри указанного элемента
 
@@ -302,23 +226,19 @@ const showTime = () => {
   const date = new Date();
   timeElement.textContent = date.toLocaleTimeString(translation[state.language].locale);
 
-  //обновление времени каждую секунду (функция запускается заново через каждую секунду)
   showDate();
   getTimeOfDay();
   setTimeout(showTime, 1000);
 };
 showTime();
 
-//  функция, которая будет показывать текущую дату внутри указанного элемента
 function showDate() {
-  // дата отображается в зависимости от локали (язык и формат даты, также в переменной options (которая передается как параметр) указано, что отображать в дате и в каком формате словами либо цифрами)
   const date = new Date();
   let options = { weekday: 'long', month: 'long', day: 'numeric' };
   const currentDate = date.toLocaleDateString(translation[state.language].locale, options);
   dateElement.textContent = currentDate;
 }
 
-//  функция, которая будет выводить текст приветствия в зависимости от времени суток
 function getTimeOfDay() {
   const greetingsText2 = ['morning', 'afternoon', 'evening', 'night'];
   const date = new Date();
@@ -331,7 +251,6 @@ function getTimeOfDay() {
   return greetingsText2[index];
 }
 
-//функция, которая показывает placeholder
 function showPlaceholders() {
   const placeholderName = document.querySelector('.name');
   const placeholderCity = document.querySelector('.city');
@@ -340,16 +259,10 @@ function showPlaceholders() {
 }
 showPlaceholders();
 
-// перед перезагрузкой или закрытием страницы (событие beforeunload) данные нужно сохранить
-// перед перезагрузкой или закрытием страницы  сохраняет введенное имя по ключу 'Username' в LocalStorage
-
 function setUserNameLocalStorage() {
   localStorage.setItem('Username', userName.value);
 }
 window.addEventListener('beforeunload', setUserNameLocalStorage);
-
-// перед загрузкой страницы (событие load) данные нужно восстановить и отобразить
-// перед загрузкой восстанавливает и отображает введенное имя, сохранённое в LocalStorage по ключу 'Username'
 
 function getUserNameLocalStorage() {
   if (localStorage.getItem('Username')) {
@@ -357,9 +270,6 @@ function getUserNameLocalStorage() {
   }
 }
 window.addEventListener('load', getUserNameLocalStorage);
-
-// перед перезагрузкой или закрытием страницы (событие beforeunload) данные нужно сохранить
-// перед перезагрузкой или закрытием страницы  сохраняет введенное имя по ключaм 'Language', 'SourceBackground', 'Tags' в LocalStorage
 
 function setSettingsLocalStorage() {
   localStorage.setItem('language', selectLanguage.value);
@@ -379,7 +289,7 @@ function getRandomNum(min, max) {
 }
 
 // функция, которая формирует ссылку для фонового изображения с учётом времени суток и случайного номера изображения (от 01 до 20). Изображения получаем из GitHub.
-//реализована плавная смена изображений (в js создаём изображение, указываем его адрес, дожидаемся загрузки изображения для чего используем событие load и только потом указываем ссылку на изображение в качестве фона страницы)
+
 function setBgGitHub() {
   let timeOfDay = getTimeOfDay();
   let bgNum = (randomNumSlide + '').padStart(2, '0');
@@ -402,15 +312,12 @@ async function setBgUnsplashApi(tag) {
   };
 }
 
-//объект, который сохраняет данные tag(параметр по которым ищем фото) и  массив полученных изображений на основании параметра tag:
 const flickrApiData = {
   tag: null,
   photos: [],
 };
 
-//функция для получение фонового изображения от Flickr API
 async function setBgFlickrApi(tag) {
-  // если параметр по которому искали изображения не равен тому, что ранее записали, надо опять делать запрос в API и получать новые изображения по новому параметру.
   if (flickrApiData.tag != tag) {
     flickrApiData.tag = tag;
     const url = `https://www.flickr.com/services/rest/?method=flickr.photos.search&api_key=5b0051e20f6373afe3882819061d7b0f&tags=${flickrApiData.tag}&extras=url_l&format=json&nojsoncallback=1`;
@@ -418,7 +325,7 @@ async function setBgFlickrApi(tag) {
     const data = await res.json();
     flickrApiData.photos = data.photos.photo;
   }
-  // если параметр по которому искали изображения  равен тому, что ранее записали, НЕ НАДО  делать запрос в API, а просто использовать те изображения, которые были записаны первоначально в массив photos
+
   const img = new Image();
   img.src = `${flickrApiData.photos[getRandomNum(0, flickrApiData.photos.length)].url_l}`;
   img.onload = () => {
@@ -426,19 +333,15 @@ async function setBgFlickrApi(tag) {
   };
 }
 
-//  элемент хтил для выбора источника получения фонового изображения
 const selectSourceBackground = document.getElementById('source');
-// при изменении состояния блока выбора источника получения фонового изображения  (т.е. откуда будем получать изображения: GitHub, Unsplash API, Flickr API) запускается функция
-// changeSourceBackground
+
 selectSourceBackground.addEventListener('change', changeSourceBackground);
 
-// функция, которая при изменении источника получения фонового изображения  в объекте state меняет значение sourceBackground: на значение value элемента где произошло изменение
 function changeSourceBackground() {
   state.sourceBackground = selectSourceBackground.value;
   switchSourceBackground();
 }
-//функция, которая переключает источник получения изображения в зависимости от того, что указано в state.sourceBackground (gitHub,unsplash-api,flickr-api);
-//При выборе источника получения изображения, учитывается значение переменной tag (в которой хранится тег/ теги введенные в input (settingsTagsInput) - для которых API будет присылает фото). Если пользователь не указал теги в input, то по умолчанию tag формируется с учётом времени суток(morning, afternoon, evening, night).
+
 function switchSourceBackground() {
   let tag = getTimeOfDay();
   switch (state.sourceBackground) {
@@ -464,9 +367,6 @@ function switchSourceBackground() {
 }
 switchSourceBackground();
 
-//функция, которая перелистывает следующий слайд при клике на правую стрелку
-// (увеличивает рандомное число на 1 пока результат не станет равным 20. Если результат сложения равен 20, следующему за ним числу присваиваете значение 1. Вызывает функцию setBgGitHub(), обновляющую фоновое изображение)
-
 function getSlideNext() {
   const slideNext = randomNumSlide != 20 ? randomNumSlide + 1 : 1;
   randomNumSlide = slideNext;
@@ -476,9 +376,6 @@ function getSlideNext() {
 
 const arrowRight = document.querySelector('.slide-next');
 arrowRight.addEventListener('click', getSlideNext);
-
-//функция, которая перелистывает следующий слайд при клике на левую стрелку
-//(уменьшает рандомное число на единицу, пока оно больше 1. Если результат вычитания равен 1, следующему за ним числу присваиваете значение 20. Вызывает функцию setBgGitHub(), обновляющую фоновое изображение)
 
 function getSlidePrev() {
   const slidePrev = randomNumSlide != 1 ? randomNumSlide - 1 : 20;
@@ -492,18 +389,9 @@ arrowLeft.addEventListener('click', getSlidePrev);
 
 // Виджет погоды
 
-// изначальное значение city.value
 city.value = getCityValueLocalStorage();
 
-//функция, которая отображает иконку погоды, температуру, описание погоды
-
 async function getWeather() {
-  //По ссылке отображается объект с погодой. Некоторые свойства данного объекта:
-  // .weather[0].id - id иконки погоды //.weather[0].description - описание погоды
-  // .main.temp- температура, data.wind.speed - скорость ветра в м/с, data.main.humidity - относительная влажность воздуха
-
-  // если city.value равно нулю вывести ошибку
-
   if (!city.value) {
     weatherError.textContent = `${translation[state.language].errorCityNotSpecified} '${city.value}'!`;
     clearsValuesWeather();
@@ -522,7 +410,6 @@ async function getWeather() {
     return;
   }
 
-  // если data.cod равно 404 вывести ошибку
   if (data.cod === '404') {
     weatherError.textContent = `${translation[state.language].errorCityNotFound} '${city.value}'!`;
     clearsValuesWeather();
@@ -538,11 +425,7 @@ async function getWeather() {
 
 getWeather();
 
-// на input city вешаем обработчик события 'change' - изменение элемента, при наступлении события запускает функцию getWeather
-
 city.addEventListener('change', getWeather);
-
-// функция, которая очищает контент блока weather (используем когда введен неверный город или вообще ничего не введено в city)
 
 function clearsValuesWeather() {
   weatherIcon.className = '';
@@ -552,15 +435,10 @@ function clearsValuesWeather() {
   humidity.textContent = ``;
 }
 
-// перед перезагрузкой или закрытием страницы (событие beforeunload) данные нужно сохранить
-// перед перезагрузкой или закрытием страницы  сохраняет введенный  город по ключу 'City' в LocalStorage
-
 function setCityValueLocalStorageCity() {
   localStorage.setItem('city', city.value);
 }
 window.addEventListener('beforeunload', setCityValueLocalStorageCity);
-
-// перед загрузкой восстанавливает и отображает введенный город, сохранённый в LocalStorage по ключу 'city' если город не введен, то выводит Минск
 
 function getCityValueLocalStorage() {
   const city = localStorage.getItem('city');
@@ -568,8 +446,6 @@ function getCityValueLocalStorage() {
 }
 
 // Виджет цитата дня
-
-//функция, которая загружает цитату и её автора
 
 async function getQuote() {
   const url = `quote.json`;
@@ -636,47 +512,30 @@ function handleInputChange(e) {
   volumeSound.style.backgroundSize = ((val - min) * 100) / (max - min) + '% 100%';
   audio.volume = +val;
 }
-//находим элемент - кнопку, которая должна отключать громкость
+
 const volumeButton = document.querySelector('.volume__button');
-// флаг включен звук или нет, если true включен, если false, то выключен
+
 let isVolume = true;
-// переменная, в которой будет хранится текущее значение текущее значение value (т.е какая была громкость до нажатия на отключить звук)
 let presentValue = 0;
-//вешаем обработчик события на кнопку, по клику устанавливает значение volumeSound.value равным нулю, что бы громкости не было (громкость от 0 до 1) и запускаем функцию handleInputChange(e)
 volumeButton.addEventListener('click', () => {
-  //если isVolume true, значит звук включен и его нужно отключить
   if (isVolume) {
-    // добавляем класс элементу, чтобы при выключенном звуке, значок звука зачеркивался (прописано в СSS в этом классе, который добавляем)
     volumeButton.classList.add('volume__button--disable');
-    // сохранили текущее значение громкости в переменную  presentValue
     presentValue = volumeSound.value;
-    // установили значение  volumeSound.value = 0, чтобы когда начнет работать функция в конце, value  станет равным нулю, звук отключится (т.к. audio.volume = +val, а valye уже 0!!!;)
     volumeSound.value = 0;
-    //меняем значение флага на false, т.к. звук уже отключили, значит  isVolume = false
     isVolume = false;
   } else {
-    //если isVolume false, значит звук выключен и его нужно включить
-    // добавляем класс элементу, чтобы при включенном звуке, значок звука уже не был зачеркнут
     volumeButton.classList.remove('volume__button--disable');
-    // меняем значение value на текущее значение громкости, которое было до отключения звука (мы его сохранили перед отключением, выше, соотвественно звук появится, т.к. volumeSound.value уже не равно нулю, и когда функция   handleInputChange() запустится она уже будет знать, что value равно текущему значению)
     volumeSound.value = presentValue;
-    //меняем значение флага на true, т.к. звук уже включен, значит  isVolume = true
     isVolume = true;
   }
-  //функция, которая изменяет громкость и закрашивает input громкости
   handleInputChange();
 });
 
 volumeSound.addEventListener('input', handleInputChange);
 
-// элемент отображения названия активной песни
 const playerSongTitle = document.querySelector('.player-song-title');
 
 function playAudio() {
-  // если src не равно src следующей песне, тогда включи следующую песню. А если равны, то пусть остаётся тоже src играет та же песня, которая и играла
-
-  // audio.src.replace(window.location.origin, '')// в audio.src. методом replace заменяем свойство origin на пустую строку, чтобы в audio.src осталось только то, что нам нужно для сравнения с playList[playNum].src (а именно в таком виде '/assets/sounds/HIM-The-Sacrament.mp3')
-
   if (audio.src.replace(window.location.origin + '/', '') != playList[playNum].src) {
     audio.src = playList[playNum].src;
   }
@@ -685,11 +544,10 @@ function playAudio() {
   if (!isPlay) {
     isPlay = true;
     play.classList.add('pause');
-    //задается класс для стилизации активного элемента
+
     playListContainer.children[playNum].classList.add('item-active');
     playListContainer.children[playNum].children[0].classList.add('pause');
 
-    //задается класс для стилизации элемента отображения наименования песни
     playerSongTitle.classList.add('player-song-title--active');
     audio.play();
     progress.startProgress();
@@ -752,18 +610,14 @@ document.body.onkeyup = function (e) {
 
 //прогресс бар
 
-// объект для работы с прогресс-баром
-
 const progress = {
   durationPlayerElement: document.querySelector('.duration-player'),
-  //получаем хтмл элемент, отображающий текущее / общее время песни
+
   durationTimerElement: document.querySelector('.duration-timer'),
-  //получаем хтмл элемент, отображающий прогресс проигрывания песни
 
   progressElement: document.querySelector('.duration-player__progress'),
-  //переменная для хранения интервала
+
   interval: null,
-  //функция, которая запускает интервал каждые 100ms вычисляется ширина progressElement
   startProgress: function () {
     this.interval = setInterval(() => {
       this.progressElement.style.width = (audio.currentTime * 100) / audio.duration + '%';
@@ -789,13 +643,12 @@ const progress = {
   },
   //функция, при клике на durationPlayerElement меняет текущее время воспроизведения трека
   setProgress: function (e) {
-    // при клике на durationPlayerElement получаем ширину этого элемента
     const width = this.clientWidth;
-    // при клике на durationPlayerElement получаем размер отступа курсора мыши по оси X
+
     const clickX = e.offsetX;
-    // получаем длину песни в секундах (HTMLMediaElement.duration)
+
     const duration = audio.duration;
-    // задаем текущее время песни
+
     audio.currentTime = (clickX / width) * duration;
   },
   //функция, которая запускает функцию при клике на durationPlayerElement
