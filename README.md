@@ -7,7 +7,9 @@ Stack: HTML, CSS, JavaScript
 Momentum - an analog of the eponymous Chrome extension. The application displays the time and the user's name. The background image and greeting change depending on the time of day.
 The application features a clock, an image slider, weather widgets, an audio player, a quote of the day block, and settings.
 
-# Start screen, infinite Image Slider that displays images from GitHub, Unsplash API, Flickr API, depending on the selected settings
+# Start screen
+
+Infinite Image Slider that displays images from GitHub, Unsplash API, Flickr API, depending on the selected settings
 
 <image src="assets/img/screenshots/Screenshot_1.png" alt="start-slider">
 
