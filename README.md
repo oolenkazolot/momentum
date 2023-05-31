@@ -37,7 +37,7 @@ Hide/Show Blocks, Language Selection (Russian/English), Source Selection for Bac
 
 <image src="assets/img/screenshots/Screenshot_2.png" alt="settings">
 
-# Implemented Seamless Link Integration in the Application, Enhancing User Interaction
+# Implemented Seamless Link Integration
 
 <image src="assets/img/screenshots/Screenshot_7.png" alt="adding-links">
 <image src="assets/img/screenshots/Screenshot_6.png" alt="adding-links">
